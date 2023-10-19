@@ -230,7 +230,9 @@ public class AutoComplete implements AutoCompleteInterface {
             currentPrefix.append(c);
             foundit = true;
             cNodelength++;
-            
+            if(currentNode.child!=null){
+              currentNode=currentNode.child;
+            }
 
         }
       else{
@@ -293,7 +295,7 @@ public class AutoComplete implements AutoCompleteInterface {
           }
         }
       }
-      //printTrie(root, maxdepth);
+      printTrie(root, maxdepth);
       if(foundit != true){
         currentPrefix.append(c);
       }
@@ -340,7 +342,7 @@ public class AutoComplete implements AutoCompleteInterface {
       prefixlength--;
       cNodelength--;
     }
-      
+      System.out.println(currentNode.data);
     }
 
   /**
@@ -369,7 +371,7 @@ public class AutoComplete implements AutoCompleteInterface {
    * The running time is O(alphabet size*length of the current prefix). 
    */
     public void add(){
-      System.out.println(add(currentPrefix.toString()));
+     add(currentPrefix.toString());
       cNodelength = prefixlength;
       //printTrie(root, maxdepth);
       
@@ -382,7 +384,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * O(1).
    */
     public int getNumberOfPredictions(){
-      //System.out.println("NumberOfPredictions:" + currentNode.size);
+      System.out.println("NumberOfPredictions:" + currentNode.size);
+      System.out.println("CNodeLength:" + cNodelength);
+      System.out.println("prefixlength:" + prefixlength);
       if(cNodelength==prefixlength){
         return currentNode.size;
       }
