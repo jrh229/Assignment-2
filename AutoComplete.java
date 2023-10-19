@@ -203,9 +203,8 @@ public class AutoComplete implements AutoCompleteInterface {
         addindex++;                                //Keep er goin
       }
       
-      
-      return alreadyexists;
 
+      return true;
 
     }
     public void REVERSE(){
