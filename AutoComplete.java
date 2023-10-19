@@ -83,8 +83,10 @@ public class AutoComplete implements AutoCompleteInterface {
             }
         }
         else if(currentNode.data==Bohm.data){           //If current level is the right letter this just makes sure that currnode dosent change, but it will still +1 size
-
+          
+        //THIS IS THE PROBLEM
         }
+
         else if(currentNode.child==null){               //If child dosen't exist, we straight adding down
           currentNode.child = Bohm;                     //Currnode's child is now the new DLB
           Bohm.parent = currentNode;                    //DLBS parent is now currnode
@@ -127,7 +129,6 @@ public class AutoComplete implements AutoCompleteInterface {
             
             
           }
-
           else{                                     //If the child is the RIGHT letter, move down
             currentNode = currentNode.child;
           }
@@ -323,7 +324,8 @@ public class AutoComplete implements AutoCompleteInterface {
    * O(1).
    */
     public int getNumberOfPredictions(){
-      //TODO: implement this method
+      printTrie(root, maxdepth);
+      System.out.println("NumberOfPredictions:" + currentNode.size);
       if(cNodelength==prefixlength){
         return currentNode.size;
       }
