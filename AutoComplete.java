@@ -30,7 +30,7 @@ public class AutoComplete implements AutoCompleteInterface {
       if(word.length()==0)                                      // throws IllegalArgumentException if word is the empty string
         throw new IllegalArgumentException();
       int length = word.length();
-
+      boolean alreadyexists = true;
       if(length > maxdepth){                                    //Sets new deepest length
         maxdepth = length;
       }
@@ -92,12 +92,11 @@ public class AutoComplete implements AutoCompleteInterface {
 
         }
         else if(currentNode.child!=null){                         //If there already IS a Child
-          DLBNode Marsh = currentNode.child;
           if(currentNode.child.data!=Phillies){                   //BUT its not the right letter
 
             if(currentNode.child.nextSibling==null){              //IF the childs sibling is null
               currentNode.child.nextSibling = Bohm;               //Attach a new sibling to child
-              Bohm.previousSibling = Marsh;
+              Bohm.previousSibling = currentNode.child;
               currentNode = Bohm;
             }
 
@@ -140,17 +139,18 @@ public class AutoComplete implements AutoCompleteInterface {
         if(addindex==length-1){                    //If we just added the last letter of the string
           if(currentNode.isWord==true){            //But turns out this word already exists
             REVERSE();
+            alreadyexists = false;
             return false;                          //Too bad, already exists.
           }
           currentNode.isWord=true;                 //Dosent exist, therefore this is the  end of the new word
           return true;                             //Return baby
+          
         }
         addindex++;                                //Keep er goin
       }
-        return false;
       
       
-
+      return alreadyexists;
 
 
     }
@@ -175,6 +175,7 @@ public class AutoComplete implements AutoCompleteInterface {
         currentNode = root;
         if(currentNode.data==c){
             currentPrefix.append(c);
+            foundit = true;
             cNodelength++;
             
 
@@ -215,16 +216,22 @@ public class AutoComplete implements AutoCompleteInterface {
             
           }
           else{
-          DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
-            
-              while(Stott!=null){                                               //We check the siblings till we reach either the correct one, or a null in which we make a new one
+            DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
+            boolean RIDERIDERSOFTHEODEN = false;
+            if(Stott!=null){
+              RIDERIDERSOFTHEODEN = true;
+            }
+              while(RIDERIDERSOFTHEODEN){                                               //We check the siblings till we reach either the correct one, or a null in which we make a new one
                 if(Stott.data==c){                                              //If Praise be to God we find the right sibling
                   foundit = true;
                   currentNode = Stott;                                          //Curr node is now this sibling
                   currentPrefix.append(c);
                   cNodelength++;
-                  
-                  
+                  RIDERIDERSOFTHEODEN = false;
+
+                }
+                else if(Stott.nextSibling==null){
+                  RIDERIDERSOFTHEODEN = false;
                 }
                 else{                                                           //KEEP GOING
                   Stott = Stott.nextSibling;
@@ -236,7 +243,7 @@ public class AutoComplete implements AutoCompleteInterface {
       if(foundit != true){
         currentPrefix.append(c);
       }
-      if(currentNode.size>0){
+      if(prefixlength==cNodelength){
         return true;
       }
       else{
@@ -257,7 +264,7 @@ public class AutoComplete implements AutoCompleteInterface {
       currentPrefix.deleteCharAt(currentPrefix.length() - 1);
       if(currentNode.parent==null){                                             //If currnode has no parents go all the way back to whichever prev sibling has a parent
         boolean RUNYOUFOOLS = true;
-        DLBNode Gandalf = currentNode;
+        DLBNode Gandalf = currentNode.previousSibling;
 
         while(RUNYOUFOOLS){
           if(Gandalf.parent!=null){
@@ -302,8 +309,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * The running time is O(alphabet size*length of the current prefix). 
    */
     public void add(){
-
+      //printTrie(root, maxdepth);
       add(currentPrefix.toString());
+      printTrie(root, maxdepth);
       //TODO: implement this method
       
     }
