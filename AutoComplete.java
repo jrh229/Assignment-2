@@ -230,9 +230,9 @@ public class AutoComplete implements AutoCompleteInterface {
             currentPrefix.append(c);
             foundit = true;
             cNodelength++;
-            if(currentNode.child!=null){
-              currentNode=currentNode.child;
-            }
+            //if(currentNode.child!=null){
+              //currentNode=currentNode.child;
+            //}
 
         }
       else{
@@ -295,7 +295,7 @@ public class AutoComplete implements AutoCompleteInterface {
           }
         }
       }
-      printTrie(root, maxdepth);
+      //printTrie(root, maxdepth);
       if(foundit != true){
         currentPrefix.append(c);
       }
