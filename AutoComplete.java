@@ -363,8 +363,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * The running time is O(alphabet size*length of the current prefix). 
    */
     public void add(){
+      printTrie(root, maxdepth);
       add(currentPrefix.toString());
-      //printTrie(root, maxdepth);
+      printTrie(root, maxdepth);
       
       
     }
