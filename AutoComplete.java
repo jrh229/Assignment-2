@@ -176,9 +176,7 @@ public class AutoComplete implements AutoCompleteInterface {
         if(currentNode.data==c){
             currentPrefix.append(c);
             cNodelength++;
-            if(currentNode.isWord){
-            return true;
-            }
+            
 
         }
       else{
@@ -193,9 +191,7 @@ public class AutoComplete implements AutoCompleteInterface {
                   currentNode = Stott;                                          //Curr node is now this sibling
                   currentPrefix.append(c);
                   cNodelength++;
-                  if(currentNode.isWord){
-                    return true;
-                  }
+                  
                   RIDERIDERSOFTHEODEN = false;
                   
                 }
@@ -216,9 +212,7 @@ public class AutoComplete implements AutoCompleteInterface {
             currentNode=currentNode.child;
             currentPrefix.append(c);
             cNodelength++;
-            if(currentNode.isWord){
-              return true;
-            }
+            
           }
           else{
           DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
@@ -229,9 +223,7 @@ public class AutoComplete implements AutoCompleteInterface {
                   currentNode = Stott;                                          //Curr node is now this sibling
                   currentPrefix.append(c);
                   cNodelength++;
-                  if(currentNode.isWord){
-                    return true;
-                  }
+                  
                   
                 }
                 else{                                                           //KEEP GOING
@@ -244,7 +236,13 @@ public class AutoComplete implements AutoCompleteInterface {
       if(foundit != true){
         currentPrefix.append(c);
       }
-      return false;
+      if(currentNode.size>0){
+        return true;
+      }
+      else{
+        return false;
+      }
+      
     }
 
   /**
