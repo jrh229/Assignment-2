@@ -316,41 +316,37 @@ public class AutoComplete implements AutoCompleteInterface {
         throw new IllegalStateException();
       }
       currentPrefix.deleteCharAt(currentPrefix.length() - 1);
-      if(cNodelength<prefixlength){
+      if(cNodelength!=prefixlength){
         prefixlength--;
       }
       else{
+        if(currentNode.parent==null){                                             //If currnode has no parents go all the way back to whichever prev sibling has a parent
+          boolean RUNYOUFOOLS = true;
+          DLBNode Gandalf = currentNode.previousSibling;
 
-      
-      
-      if(currentNode.parent==null){                                             //If currnode has no parents go all the way back to whichever prev sibling has a parent
-        boolean RUNYOUFOOLS = true;
-        DLBNode Gandalf = currentNode.previousSibling;
-
-        while(RUNYOUFOOLS){
-          if(Gandalf.parent!=null){
-            currentNode=Gandalf.parent;
-            RUNYOUFOOLS=false;
-          }
-          else{
-            Gandalf=Gandalf.previousSibling;
+          while(RUNYOUFOOLS){
+            if(Gandalf.parent!=null){
+              currentNode=Gandalf.parent;
+              RUNYOUFOOLS=false;
+            }
+            else{
+              Gandalf=Gandalf.previousSibling;
+            }
           }
         }
-      }
       else{
         currentNode = currentNode.parent;
       }
       prefixlength--;
       cNodelength--;
     }
-      //TODO: implement this method
+      
     }
 
   /**
    * resets the current prefix to the empty string in O(1) time
    */
     public void reset(){
-      //TODO: implement this method
       currentPrefix.setLength(0);
       currentNode = root;
       cNodelength = 0;
@@ -373,7 +369,7 @@ public class AutoComplete implements AutoCompleteInterface {
    * The running time is O(alphabet size*length of the current prefix). 
    */
     public void add(){
-      add(currentPrefix.toString());
+      System.out.println(add(currentPrefix.toString()));
       cNodelength = prefixlength;
       //printTrie(root, maxdepth);
       
