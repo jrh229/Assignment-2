@@ -58,7 +58,7 @@ public class AutoComplete implements AutoCompleteInterface {
               currentNode = Bohm;
             }
 
-            else{                                             //IF child sibling is not null
+            else{                                             //IF sibling is not null
               DLBNode Stott = root.nextSibling;               //The sibling node
             
               boolean VORWARTS = true;                        //Condition to keep on looking for ther ight sibling
@@ -82,8 +82,59 @@ public class AutoComplete implements AutoCompleteInterface {
 
             }
         }
-        else if(currentNode.data==Bohm.data){           //If current level is the right letter this just makes sure that currnode dosent change, but it will still +1 size
-          
+        else if(currentNode.data==Bohm.data){           //If current level is the right letter 
+          if((addindex>0)&&(addindex<word.length()-1)){
+            if(word.charAt(addindex)==word.charAt(addindex+1)){   //BRUH WE GOT BACK TO BACK SAME CHARACTERS
+              currentNode.size++;
+              if(currentNode.child==null){                    //If there is no child 
+                
+                currentNode.child = Bohm;                     //Currnode's child is now the new DLB
+                Bohm.parent = currentNode;                    //DLBS parent is now currnode
+                currentNode = Bohm;                           //Currnode is new child
+
+              }
+              else{                                           //If there is a child
+              if(currentNode.child.data!=Phillies){                   //BUT its not the right letter
+
+                if(currentNode.child.nextSibling==null){              //IF the childs sibling is null
+                  currentNode.child.nextSibling = Bohm;               //Attach a new sibling to child
+                  Bohm.previousSibling = currentNode.child;
+                  currentNode = Bohm;
+                }
+
+              else{                                                 //IF child sibling is not null
+                DLBNode Stott = currentNode.child.nextSibling;      //New Potential Sibling
+            
+                boolean VORWARTS = true;
+                while(VORWARTS){                                    //We check the siblings till we reach either the correct one, or a null in which we make a new one
+
+                
+                if(Stott.nextSibling==null){                      //If we find the edge, which means we gotta make a new Sibling
+                  Stott.nextSibling = Bohm;                       //Next Sibling = the DLB we made earlier
+                  Bohm.previousSibling=Stott;                     //The next siblings prev points back to the iterator
+                  currentNode = Bohm;                             //Cur node = new DLB
+                  VORWARTS = false;                               //STOP LOOPING
+                  }
+                else if(Stott.data==Phillies){                         //If Praise be to God we find the right sibling
+                  currentNode = Stott;                            //Curr node is now this sibling
+                  VORWARTS = false;                               //KILL THE LOOPING
+                }
+                else{                                             //KEEP GOING
+                  Stott = Stott.nextSibling;
+                }
+
+              }
+
+            }
+            
+            
+          }
+          else{                                     //If the child is the RIGHT letter, move down
+            currentNode = currentNode.child;
+          }
+              }
+            }
+          }
         //THIS IS THE PROBLEM
         }
 
@@ -324,7 +375,6 @@ public class AutoComplete implements AutoCompleteInterface {
    * O(1).
    */
     public int getNumberOfPredictions(){
-      printTrie(root, maxdepth);
       System.out.println("NumberOfPredictions:" + currentNode.size);
       if(cNodelength==prefixlength){
         return currentNode.size;
