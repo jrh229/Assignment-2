@@ -84,8 +84,7 @@ public class AutoComplete implements AutoCompleteInterface {
         }
         else if(currentNode.data==Bohm.data){           //If current level is the right letter 
           if((addindex>0)&&(addindex<word.length()-1)){
-            if(word.charAt(addindex)==word.charAt(addindex+1)){   //BRUH WE GOT BACK TO BACK SAME CHARACTERS
-              currentNode.size++;
+            if(word.charAt(addindex)==word.charAt(addindex-1)){   //BRUH WE GOT BACK TO BACK SAME CHARACTERS
               if(currentNode.child==null){                    //If there is no child 
                 
                 currentNode.child = Bohm;                     //Currnode's child is now the new DLB
@@ -292,6 +291,7 @@ public class AutoComplete implements AutoCompleteInterface {
           }
         }
       }
+      //printTrie(root, maxdepth);
       if(foundit != true){
         currentPrefix.append(c);
       }
@@ -314,6 +314,13 @@ public class AutoComplete implements AutoCompleteInterface {
         throw new IllegalStateException();
       }
       currentPrefix.deleteCharAt(currentPrefix.length() - 1);
+      if(cNodelength<prefixlength){
+        prefixlength--;
+      }
+      else{
+
+      
+      
       if(currentNode.parent==null){                                             //If currnode has no parents go all the way back to whichever prev sibling has a parent
         boolean RUNYOUFOOLS = true;
         DLBNode Gandalf = currentNode.previousSibling;
@@ -333,6 +340,7 @@ public class AutoComplete implements AutoCompleteInterface {
       }
       prefixlength--;
       cNodelength--;
+    }
       //TODO: implement this method
     }
 
@@ -363,9 +371,8 @@ public class AutoComplete implements AutoCompleteInterface {
    * The running time is O(alphabet size*length of the current prefix). 
    */
     public void add(){
-      printTrie(root, maxdepth);
       add(currentPrefix.toString());
-      printTrie(root, maxdepth);
+      //printTrie(root, maxdepth);
       
       
     }
@@ -376,7 +383,7 @@ public class AutoComplete implements AutoCompleteInterface {
    * O(1).
    */
     public int getNumberOfPredictions(){
-      System.out.println("NumberOfPredictions:" + currentNode.size);
+      //System.out.println("NumberOfPredictions:" + currentNode.size);
       if(cNodelength==prefixlength){
         return currentNode.size;
       }
