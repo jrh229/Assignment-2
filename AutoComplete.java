@@ -372,6 +372,7 @@ public class AutoComplete implements AutoCompleteInterface {
    */
     public void add(){
       add(currentPrefix.toString());
+      cNodelength = prefixlength;
       //printTrie(root, maxdepth);
       
       
