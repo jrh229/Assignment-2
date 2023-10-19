@@ -292,6 +292,7 @@ public class AutoComplete implements AutoCompleteInterface {
           }
         }
       }
+       prefixlength++;
       //printTrie(root, maxdepth);
       if(foundit != true){
         currentPrefix.append(c);
