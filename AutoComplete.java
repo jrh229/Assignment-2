@@ -300,6 +300,7 @@ public class AutoComplete implements AutoCompleteInterface {
    * otherwise. The running time is O(1).
    */
     public boolean isWord(){
+      printTrie(root, maxdepth);
       System.out.println(cNodelength);
       System.out.println(prefixlength);
       return(cNodelength==prefixlength);
