@@ -300,9 +300,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * otherwise. The running time is O(1).
    */
     public boolean isWord(){
-      printTrie(root, maxdepth);
-      System.out.println(cNodelength);
-      System.out.println(prefixlength);
+      //printTrie(root, maxdepth);
+      //System.out.println(cNodelength);
+      //System.out.println(prefixlength);
       return(cNodelength==prefixlength);
     }
 
@@ -311,10 +311,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * The running time is O(alphabet size*length of the current prefix). 
    */
     public void add(){
-      //printTrie(root, maxdepth);
       add(currentPrefix.toString());
-      printTrie(root, maxdepth);
-      //TODO: implement this method
+      //printTrie(root, maxdepth);
+      
       
     }
 
@@ -329,7 +328,7 @@ public class AutoComplete implements AutoCompleteInterface {
         return currentNode.size;
       }
       else{
-        return -1;
+        return 0;
       }
     }
   
