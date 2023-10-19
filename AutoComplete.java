@@ -222,6 +222,7 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
+     
       boolean foundit = false;
       if(currentPrefix.length()==0){                                            //If we are starting from root
         currentNode = root;
@@ -291,13 +292,11 @@ public class AutoComplete implements AutoCompleteInterface {
           }
         }
       }
-      prefixlength++;
-      printTrie(root, maxdepth);
-        
-      if(foundit==false){
+      //printTrie(root, maxdepth);
+      if(foundit != true){
         currentPrefix.append(c);
       }
-      if(foundit){
+      if(prefixlength==cNodelength){
         return true;
       }
       else{
