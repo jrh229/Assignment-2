@@ -1,5 +1,8 @@
 /**
  * An implementation of the AutoCompleteInterface using a DLB Trie.
+ * jrh229
+ * JHeinzBurger
+ * anno Domini 2023
  */
 
 public class AutoComplete implements AutoCompleteInterface {
@@ -399,10 +402,36 @@ public class AutoComplete implements AutoCompleteInterface {
    * @return a String or null if no predictions exist for the current prefix
    */
     public String retrievePrediction(){
-      if(currentNode.size>0){
+      if(currentNode.size<1){
+        return null;
+        
+      }
+      if(cNodelength!=prefixlength){
+        return null;
+      }
+      if(currentNode.isWord){
         return currentPrefix.toString();
       }
-
+      else{
+        if(currentNode.child==null){
+          return null;
+        }
+        StringBuilder temp = currentPrefix;
+        DLBNode Castellanos = currentNode.child;
+        boolean keepergoing = true;
+        while(keepergoing){
+          if(Castellanos.isWord){
+            temp.append(Castellanos.data);
+            return temp.toString();
+          }
+          else if(Castellanos.child==null){
+            return null;
+          }
+          else{
+            Castellanos=Castellanos.child;
+          }
+        }
+      }
       return null;
     }
 
