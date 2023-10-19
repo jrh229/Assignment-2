@@ -222,7 +222,6 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
-      prefixlength++;
       boolean foundit = false;
       if(currentPrefix.length()==0){                                            //If we are starting from root
         currentNode = root;
@@ -230,10 +229,7 @@ public class AutoComplete implements AutoCompleteInterface {
             currentPrefix.append(c);
             foundit = true;
             cNodelength++;
-            //if(currentNode.child!=null){
-              //currentNode=currentNode.child;
-            //}
-
+            
         }
       else{
           DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
@@ -295,11 +291,13 @@ public class AutoComplete implements AutoCompleteInterface {
           }
         }
       }
-      //printTrie(root, maxdepth);
-      if(foundit != true){
+      prefixlength++;
+      printTrie(root, maxdepth);
+        
+      if(foundit==false){
         currentPrefix.append(c);
       }
-      if(prefixlength==cNodelength){
+      if(foundit){
         return true;
       }
       else{
