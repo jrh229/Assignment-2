@@ -208,7 +208,7 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
-      printTrie(root, maxdepth);
+      //printTrie(root, maxdepth);
       boolean ispre = false;
       currentPrefix.append(c);
       if(prefixlength==0){            //We are at root
