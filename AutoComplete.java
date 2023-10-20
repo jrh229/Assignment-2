@@ -34,6 +34,7 @@ public class AutoComplete implements AutoCompleteInterface {
         throw new IllegalArgumentException();
       int length = word.length();
       boolean alreadyexists = true;
+
       if(length > maxdepth){                                    //Sets new deepest length
         maxdepth = length;
       }
@@ -188,7 +189,7 @@ public class AutoComplete implements AutoCompleteInterface {
       }
       
 
-      return true;
+      return alreadyexists;
     }
 
     public void REVERSE(){
@@ -206,87 +207,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
-      boolean foundit = false;
-      if(currentPrefix.length()==0){                                            //If we are starting from root
-        currentNode = root;
-        if(currentNode.data==c){
-            currentPrefix.append(c);
-            foundit = true;
-            cNodelength++;
-            
-        }
-      else{
-          DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
-          boolean RIDERIDERSOFTHEODEN = false;
-          if(Stott!=null){
-            RIDERIDERSOFTHEODEN = true;
-          }
-              while(RIDERIDERSOFTHEODEN){                                   //We check the siblings till we reach either the correct one, or a null in which we make a new one
-                if(Stott.data==c){                                              //If Praise be to God we find the right sibling
-                  foundit = true;
-                  currentNode = Stott;                                          //Curr node is now this sibling
-                  currentPrefix.append(c);
-                  cNodelength++;
-                  
-                  RIDERIDERSOFTHEODEN = false;
-                  
-                }
-                else if(Stott.nextSibling==null){
-                  RIDERIDERSOFTHEODEN = false;
-                }
-                else{                                                           //KEEP GOING
-                  Stott = Stott.nextSibling;
-                }
-              }
-          }
-      }
-
-      else{
-        if(currentNode.child!=null){
-          if(currentNode.child.data==c){
-            foundit = true;
-            currentNode=currentNode.child;
-            currentPrefix.append(c);
-            cNodelength++;
-            
-          }
-          else{
-            DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
-            boolean RIDERIDERSOFTHEODEN = false;
-            if(Stott!=null){
-              RIDERIDERSOFTHEODEN = true;
-            }
-              while(RIDERIDERSOFTHEODEN){                                               //We check the siblings till we reach either the correct one, or a null in which we make a new one
-                if(Stott.data==c){                                              //If Praise be to God we find the right sibling
-                  foundit = true;
-                  currentNode = Stott;                                          //Curr node is now this sibling
-                  currentPrefix.append(c);
-                  cNodelength++;
-                  RIDERIDERSOFTHEODEN = false;
-
-                }
-                else if(Stott.nextSibling==null){
-                  RIDERIDERSOFTHEODEN = false;
-                }
-                else{                                                           //KEEP GOING
-                  Stott = Stott.nextSibling;
-                }
-              }
-          }
-        }
-      }
-       prefixlength++;
-      //printTrie(root, maxdepth);
-      if(foundit != true){
-        currentPrefix.append(c);
-      }
-      if(prefixlength==cNodelength){
-        return true;
-      }
-      else{
-        return false;
-      }
+      currentPrefix.append(c);
       
+      return true;
     }
 
   /**
@@ -295,6 +218,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * @throws IllegalStateException if the current prefix is the empty string
    */
     public void retreat(){
+      if(currentNode==root){
+        throw new IllegalStateException();
+      }
       if(currentPrefix.length()==0){
         throw new IllegalStateException();
       }
