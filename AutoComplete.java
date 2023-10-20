@@ -119,7 +119,7 @@ public class AutoComplete implements AutoCompleteInterface {
                   Stott = Stott.nextSibling;
                 }
               }
-            } 
+            }
           }
           else{                                     //If the child is the RIGHT letter, move down
             currentNode = currentNode.child;
@@ -207,9 +207,43 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
+      printTrie(root, maxdepth);
+      boolean ispre = false;
       currentPrefix.append(c);
-      
-      return true;
+      if(prefixlength==0){            //We are at root
+        currentNode = root;
+        
+      }
+      System.out.println("Current Node:" + currentNode.data);
+      if(currentNode.data==c){
+        cNodelength++;
+        ispre = true;
+        if(currentNode.child!=null){
+          currentNode=currentNode.child;
+        }
+      }
+      else if(currentNode.nextSibling!=null){
+        DLBNode Stott = currentNode.child.nextSibling;      //New Potential Sibling
+                boolean VORWARTS = true;
+                while(VORWARTS){                                    //We check the siblings till we reach either the correct one, or a null in which we make a new one
+                
+                if(Stott.nextSibling==null){                      //If we find the edge, which means we gotta make a new Sibling
+                  ispre = false;                             //Cur node = new DLB
+                  VORWARTS = false;                               //STOP LOOPING
+                  }
+                else if(Stott.data==c){                         //If Praise be to God we find the right sibling
+                  currentNode = Stott;                            //Curr node is now this sibling
+                  VORWARTS = false;                               //KILL THE LOOPING
+                  cNodelength++;
+                  ispre = true;
+                }
+                else{                                             //KEEP GOING
+                  Stott = Stott.nextSibling;
+                }
+              }
+      }
+      prefixlength++;
+      return ispre;
     }
 
   /**
