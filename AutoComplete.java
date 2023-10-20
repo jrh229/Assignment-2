@@ -12,12 +12,9 @@ public class AutoComplete implements AutoCompleteInterface {
   private DLBNode currentNode;
   private int addindex;
   private DLBNode[] added;
-  private DLBNode advancenextnode;
-  private DLBNode prevaddnode;
   private int maxdepth;
   private int prefixlength;
   private int cNodelength;
-  private int depth;
   //TODO: Add more instance variables as needed
 
   public AutoComplete(){
@@ -37,91 +34,179 @@ public class AutoComplete implements AutoCompleteInterface {
         throw new IllegalArgumentException();
       int length = word.length();
       boolean alreadyexists = true;
-
       if(length > maxdepth){                                    //Sets new deepest length
         maxdepth = length;
       }
+
       added = new DLBNode[length];                              //Creates backtracking array
       DLBNode newroot = new DLBNode(word.charAt(0));
-      boolean isAlready = true;
+
       if(root==null){                                         //If root does not exist (new)
           root = newroot;
         }
-      currentNode = root;
-      depth = 0;
+
+      currentNode = root;                                     //Sets Currentnode back to root
       addindex = 0;                                           //Counter
+
 
       while(addindex<length){
 
         char Phillies = word.charAt(addindex);                //Char of string at index[addindex]
         DLBNode Bohm = new DLBNode(Phillies);                 //DLB node created using 
-        //printTrie(root, maxdepth);
-        if(currentNode==null){                                //If there is nothing in this slot
-          
-            Bohm.parent=prevaddnode;
-            prevaddnode.child = Bohm;
-            currentNode = Bohm;
-            currentNode.size++;
-        }
-        else if(currentNode.data==Bohm.data){
-          currentNode.size++;
 
-        }
-        else{
-          if(currentNode.nextSibling==null){
-            Bohm.previousSibling=currentNode;
-            currentNode.nextSibling=Bohm;
-            Bohm.size++;
-            currentNode = Bohm;
-          }
-          else{
-            DLBNode Stott = currentNode.nextSibling;      //New Potential Sibling
-                boolean VORWARTS = true;
-                while(VORWARTS){                                    //We check the siblings till we reach either the correct one, or a null in which we make a new one
+        if(addindex==0&&root.data!=Bohm.data){                //If we're at root and its not right, we gotta go to the siblings
+          if(root.nextSibling==null){                         //IF the childs sibling is null
+              root.nextSibling = Bohm;                        //Attach the new DLB as a sibling to root
+              Bohm.previousSibling = root;
+              currentNode = Bohm;
+            }
 
-                if(Stott.data==Bohm.data){                         //If Praise be to God we find the right sibling
+            else{                                             //IF sibling is not null
+              DLBNode Stott = root.nextSibling;               //The sibling node
+            
+              boolean VORWARTS = true;                        //Condition to keep on looking for ther ight sibling
+              while(VORWARTS){                                //We check the siblings till we reach either the correct one, or a null in which we make a new one
 
+                if(Stott.data==Bohm.data){                        //If Praise be to God we find the right sibling
+                  currentNode = Stott;                            //Curr node is now this sibling
                   VORWARTS = false;                               //KILL THE LOOPING
-                  Stott.size++;
-                  currentNode = Bohm;
                 }
-
-                else if(Stott.nextSibling==null){                      //If we find the edge, which means we gotta make a new Sibling
-                  Bohm.previousSibling=Stott;
-                  Stott.nextSibling=Bohm;
-                  Bohm.size++;
+                else if(Stott.nextSibling==null){                 //If we find the edge, which means we gotta make a new Sibling
+                  Stott.nextSibling = Bohm;                       //Next Sibling = the DLB we made earlier
+                  Bohm.previousSibling=Stott;                     //The BLB prev points back to the iterator
+                  currentNode = Bohm;                             //Curnode = new DLB
                   VORWARTS = false;                               //STOP LOOPING
-                  currentNode = Bohm;
                   }
                 else{                                             //KEEP GOING
                   Stott = Stott.nextSibling;
                 }
+
               }
 
-          }
+            }
         }
-        if(addindex==length-1){
-          if(currentNode.isWord){
-            isAlready = false;
+        else if(currentNode.data==Bohm.data){           //If current level is the right letter 
+          if((addindex>0)&&(addindex<word.length()-1)){
+            if(word.charAt(addindex)==word.charAt(addindex-1)){   //BRUH WE GOT BACK TO BACK SAME CHARACTERS
+              if(currentNode.child==null){                    //If there is no child 
+                
+                currentNode.child = Bohm;                     //Currnode's child is now the new DLB
+                Bohm.parent = currentNode;                    //DLBS parent is now currnode
+                currentNode = Bohm;                           //Currnode is new child
+
+              }
+              else{                                           //If there is a child
+              if(currentNode.child.data!=Phillies){                   //BUT its not the right letter
+
+                if(currentNode.child.nextSibling==null){              //IF the childs sibling is null
+                  currentNode.child.nextSibling = Bohm;               //Attach a new sibling to child
+                  Bohm.previousSibling = currentNode.child;
+                  currentNode = Bohm;
+                }
+
+              else{                                                 //IF child sibling is not null
+                DLBNode Stott = currentNode.child.nextSibling;      //New Potential Sibling
+            
+                boolean VORWARTS = true;
+                while(VORWARTS){                                    //We check the siblings till we reach either the correct one, or a null in which we make a new one
+
+                
+                if(Stott.nextSibling==null){                      //If we find the edge, which means we gotta make a new Sibling
+                  Stott.nextSibling = Bohm;                       //Next Sibling = the DLB we made earlier
+                  Bohm.previousSibling=Stott;                     //The next siblings prev points back to the iterator
+                  currentNode = Bohm;                             //Cur node = new DLB
+                  VORWARTS = false;                               //STOP LOOPING
+                  }
+                else if(Stott.data==Phillies){                         //If Praise be to God we find the right sibling
+                  currentNode = Stott;                            //Curr node is now this sibling
+                  VORWARTS = false;                               //KILL THE LOOPING
+                }
+                else{                                             //KEEP GOING
+                  Stott = Stott.nextSibling;
+                }
+
+              }
+
+            }
+            
+            
           }
-          else{
-          currentNode.isWord=true;
-          isAlready = true;
+          else{                                     //If the child is the RIGHT letter, move down
+            currentNode = currentNode.child;
           }
+              }
+            }
+          }
+        //THIS IS THE PROBLEM
         }
-        addindex++;
-        prevaddnode = currentNode;
-        currentNode=currentNode.child;
+
+        else if(currentNode.child==null){               //If child dosen't exist, we straight adding down
+          currentNode.child = Bohm;                     //Currnode's child is now the new DLB
+          Bohm.parent = currentNode;                    //DLBS parent is now currnode
+          currentNode = Bohm;                           //Currnode is new child
+
         }
-        return isAlready;
+        else if(currentNode.child!=null){                         //If there already IS a Child
+          if(currentNode.child.data!=Phillies){                   //BUT its not the right letter
+
+            if(currentNode.child.nextSibling==null){              //IF the childs sibling is null
+              currentNode.child.nextSibling = Bohm;               //Attach a new sibling to child
+              Bohm.previousSibling = currentNode.child;
+              currentNode = Bohm;
+            }
+
+            else{                                                 //IF child sibling is not null
+              DLBNode Stott = currentNode.child.nextSibling;      //New Potential Sibling
+            
+              boolean VORWARTS = true;
+              while(VORWARTS){                                    //We check the siblings till we reach either the correct one, or a null in which we make a new one
+
+                
+                if(Stott.nextSibling==null){                      //If we find the edge, which means we gotta make a new Sibling
+                  Stott.nextSibling = Bohm;                       //Next Sibling = the DLB we made earlier
+                  Bohm.previousSibling=Stott;                     //The next siblings prev points back to the iterator
+                  currentNode = Bohm;                             //Cur node = new DLB
+                  VORWARTS = false;                               //STOP LOOPING
+                  }
+                else if(Stott.data==Phillies){                         //If Praise be to God we find the right sibling
+                  currentNode = Stott;                            //Curr node is now this sibling
+                  VORWARTS = false;                               //KILL THE LOOPING
+                }
+                else{                                             //KEEP GOING
+                  Stott = Stott.nextSibling;
+                }
+
+              }
+
+            }
+            
+            
+          }
+          else{                                     //If the child is the RIGHT letter, move down
+            currentNode = currentNode.child;
+          }
+          
+        }
+        added[addindex] = currentNode;             //Add to array whichever node curr node is
+        currentNode.size++;                        //Everything before this guarantees that currnode is on the correct node, be it a new one or finding the correct one
+
+        if(addindex==length-1){                    //If we just added the last letter of the string
+          if(currentNode.isWord==true){            //But turns out this word already exists
+            REVERSE();
+            alreadyexists = false;
+            return false;                          //Too bad, already exists.
+          }
+          currentNode.isWord=true;                 //Dosent exist, therefore this is the  end of the new word
+          return true;                             //Return baby
+          
+        }
+        addindex++;                                //Keep er goin
       }
+      
 
+      return true;
 
-
-
-      //return alreadyexists;
-    
-
+    }
     public void REVERSE(){
       for(int a = 0; a<added.length;a++){
         DLBNode alfredo = added[a];
@@ -137,46 +222,88 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
-      printTrie(root, maxdepth);
-      boolean ispre = false;
-      currentPrefix.append(c);
-      if(prefixlength==0){            //We are at root
+     
+      boolean foundit = false;
+      if(currentPrefix.length()==0){                                            //If we are starting from root
         currentNode = root;
-        
-      }
-      else{
-        currentNode =advancenextnode;
-      }
-      //System.out.println("Current Node:" + currentNode.data);
-      if(currentNode.data==c){
-        cNodelength++;
-        ispre = true;
-        if(currentNode.child!=null){
-          advancenextnode=currentNode.child;
+        if(currentNode.data==c){
+            currentPrefix.append(c);
+            foundit = true;
+            cNodelength++;
+            
         }
-      }
-      else if(currentNode.nextSibling!=null){
-        DLBNode Stott = currentNode.nextSibling;      //New Potential Sibling
-                boolean VORWARTS = true;
-                while(VORWARTS){                                    //We check the siblings till we reach either the correct one, or a null in which we make a new one
-                
-                if(Stott.nextSibling==null){                      //If we find the edge, which means we gotta make a new Sibling
-                  ispre = false;                             //Cur node = new DLB
-                  VORWARTS = false;                               //STOP LOOPING
-                  }
-                else if(Stott.data==c){                         //If Praise be to God we find the right sibling
-                  advancenextnode = Stott;                            //Curr node is now this sibling
-                  VORWARTS = false;                               //KILL THE LOOPING
+      else{
+          DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
+          boolean RIDERIDERSOFTHEODEN = false;
+          if(Stott!=null){
+            RIDERIDERSOFTHEODEN = true;
+          }
+              while(RIDERIDERSOFTHEODEN){                                   //We check the siblings till we reach either the correct one, or a null in which we make a new one
+                if(Stott.data==c){                                              //If Praise be to God we find the right sibling
+                  foundit = true;
+                  currentNode = Stott;                                          //Curr node is now this sibling
+                  currentPrefix.append(c);
                   cNodelength++;
-                  ispre = true;
+                  
+                  RIDERIDERSOFTHEODEN = false;
+                  
                 }
-                else{                                             //KEEP GOING
+                else if(Stott.nextSibling==null){
+                  RIDERIDERSOFTHEODEN = false;
+                }
+                else{                                                           //KEEP GOING
                   Stott = Stott.nextSibling;
                 }
               }
+          }
       }
-      prefixlength++;
-      return ispre;
+
+      else{
+        if(currentNode.child!=null){
+          if(currentNode.child.data==c){
+            foundit = true;
+            currentNode=currentNode.child;
+            currentPrefix.append(c);
+            cNodelength++;
+            
+          }
+          else{
+            DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
+            boolean RIDERIDERSOFTHEODEN = false;
+            if(Stott!=null){
+              RIDERIDERSOFTHEODEN = true;
+            }
+              while(RIDERIDERSOFTHEODEN){                                               //We check the siblings till we reach either the correct one, or a null in which we make a new one
+                if(Stott.data==c){                                              //If Praise be to God we find the right sibling
+                  foundit = true;
+                  currentNode = Stott;                                          //Curr node is now this sibling
+                  currentPrefix.append(c);
+                  cNodelength++;
+                  RIDERIDERSOFTHEODEN = false;
+
+                }
+                else if(Stott.nextSibling==null){
+                  RIDERIDERSOFTHEODEN = false;
+                }
+                else{                                                           //KEEP GOING
+                  Stott = Stott.nextSibling;
+                }
+              }
+          }
+        }
+      }
+       prefixlength++;
+      //printTrie(root, maxdepth);
+      if(foundit != true){
+        currentPrefix.append(c);
+      }
+      if(prefixlength==cNodelength){
+        return true;
+      }
+      else{
+        return false;
+      }
+      
     }
 
   /**
@@ -185,9 +312,6 @@ public class AutoComplete implements AutoCompleteInterface {
    * @throws IllegalStateException if the current prefix is the empty string
    */
     public void retreat(){
-      if(currentNode==root){
-        throw new IllegalStateException();
-      }
       if(currentPrefix.length()==0){
         throw new IllegalStateException();
       }
@@ -216,7 +340,7 @@ public class AutoComplete implements AutoCompleteInterface {
       prefixlength--;
       cNodelength--;
     }
-      //System.out.println(currentNode.data);
+      System.out.println(currentNode.data);
     }
 
   /**
@@ -258,9 +382,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * O(1).
    */
     public int getNumberOfPredictions(){
-      //System.out.println("NumberOfPredictions:" + currentNode.size);
-      //System.out.println("CNodeLength:" + cNodelength);
-      //System.out.println("prefixlength:" + prefixlength);
+      System.out.println("NumberOfPredictions:" + currentNode.size);
+      System.out.println("CNodeLength:" + cNodelength);
+      System.out.println("prefixlength:" + prefixlength);
       if(cNodelength==prefixlength){
         return currentNode.size;
       }
@@ -277,8 +401,9 @@ public class AutoComplete implements AutoCompleteInterface {
     public String retrievePrediction(){
       if(currentNode.size<1){
         return null;
+        
       }
-      if(cNodelength<prefixlength){
+      if(cNodelength!=prefixlength){
         return null;
       }
       if(currentNode.isWord){
@@ -288,7 +413,7 @@ public class AutoComplete implements AutoCompleteInterface {
         if(currentNode.child==null){
           return null;
         }
-        StringBuilder temp = new StringBuilder(currentPrefix);
+        StringBuilder temp = currentPrefix;
         DLBNode Castellanos = currentNode.child;
         boolean keepergoing = true;
         while(keepergoing){
@@ -353,7 +478,7 @@ public class AutoComplete implements AutoCompleteInterface {
     DLBNode result = node;
     if(node != null){
       if((index < start.length()-1) && (node.data == start.charAt(index))) {
-          result = getNode(node.child, start, index+1);
+            result = getNode(node.child, start, index+1);
       } else if((index == start.length()-1) && (node.data == start.charAt(index))) {
           result = node;
       } else {
