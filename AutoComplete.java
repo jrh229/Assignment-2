@@ -227,7 +227,7 @@ public class AutoComplete implements AutoCompleteInterface {
         }
       }
       else if(currentNode.nextSibling!=null){
-        DLBNode Stott = currentNode.child.nextSibling;      //New Potential Sibling
+        DLBNode Stott = currentNode.nextSibling;      //New Potential Sibling
                 boolean VORWARTS = true;
                 while(VORWARTS){                                    //We check the siblings till we reach either the correct one, or a null in which we make a new one
                 
