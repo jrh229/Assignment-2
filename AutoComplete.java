@@ -12,6 +12,7 @@ public class AutoComplete implements AutoCompleteInterface {
   private DLBNode currentNode;
   private int addindex;
   private DLBNode[] added;
+  private DLBNode advancenextnode;
   private int maxdepth;
   private int prefixlength;
   private int cNodelength;
@@ -214,12 +215,15 @@ public class AutoComplete implements AutoCompleteInterface {
         currentNode = root;
         
       }
+      else{
+        currentNode =advancenextnode;
+      }
       System.out.println("Current Node:" + currentNode.data);
       if(currentNode.data==c){
         cNodelength++;
         ispre = true;
         if(currentNode.child!=null){
-          currentNode=currentNode.child;
+          advancenextnode=currentNode.child;
         }
       }
       else if(currentNode.nextSibling!=null){
@@ -232,7 +236,7 @@ public class AutoComplete implements AutoCompleteInterface {
                   VORWARTS = false;                               //STOP LOOPING
                   }
                 else if(Stott.data==c){                         //If Praise be to God we find the right sibling
-                  currentNode = Stott;                            //Curr node is now this sibling
+                  advancenextnode = Stott;                            //Curr node is now this sibling
                   VORWARTS = false;                               //KILL THE LOOPING
                   cNodelength++;
                   ispre = true;
