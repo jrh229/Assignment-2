@@ -218,7 +218,7 @@ public class AutoComplete implements AutoCompleteInterface {
       else{
         currentNode =advancenextnode;
       }
-      System.out.println("Current Node:" + currentNode.data);
+      //System.out.println("Current Node:" + currentNode.data);
       if(currentNode.data==c){
         cNodelength++;
         ispre = true;
@@ -287,7 +287,7 @@ public class AutoComplete implements AutoCompleteInterface {
       prefixlength--;
       cNodelength--;
     }
-      System.out.println(currentNode.data);
+      //System.out.println(currentNode.data);
     }
 
   /**
@@ -329,9 +329,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * O(1).
    */
     public int getNumberOfPredictions(){
-      System.out.println("NumberOfPredictions:" + currentNode.size);
-      System.out.println("CNodeLength:" + cNodelength);
-      System.out.println("prefixlength:" + prefixlength);
+      //System.out.println("NumberOfPredictions:" + currentNode.size);
+      //System.out.println("CNodeLength:" + cNodelength);
+      //System.out.println("prefixlength:" + prefixlength);
       if(cNodelength==prefixlength){
         return currentNode.size;
       }
