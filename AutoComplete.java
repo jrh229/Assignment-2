@@ -37,17 +37,13 @@ public class AutoComplete implements AutoCompleteInterface {
       if(length > maxdepth){                                    //Sets new deepest length
         maxdepth = length;
       }
-
       added = new DLBNode[length];                              //Creates backtracking array
       DLBNode newroot = new DLBNode(word.charAt(0));
-
       if(root==null){                                         //If root does not exist (new)
           root = newroot;
         }
-
       currentNode = root;                                     //Sets Currentnode back to root
       addindex = 0;                                           //Counter
-
 
       while(addindex<length){
 
@@ -80,9 +76,7 @@ public class AutoComplete implements AutoCompleteInterface {
                 else{                                             //KEEP GOING
                   Stott = Stott.nextSibling;
                 }
-
               }
-
             }
         }
         else if(currentNode.data==Bohm.data){           //If current level is the right letter 
@@ -97,7 +91,6 @@ public class AutoComplete implements AutoCompleteInterface {
               }
               else{                                           //If there is a child
               if(currentNode.child.data!=Phillies){                   //BUT its not the right letter
-
                 if(currentNode.child.nextSibling==null){              //IF the childs sibling is null
                   currentNode.child.nextSibling = Bohm;               //Attach a new sibling to child
                   Bohm.previousSibling = currentNode.child;
@@ -124,12 +117,8 @@ public class AutoComplete implements AutoCompleteInterface {
                 else{                                             //KEEP GOING
                   Stott = Stott.nextSibling;
                 }
-
               }
-
-            }
-            
-            
+            } 
           }
           else{                                     //If the child is the RIGHT letter, move down
             currentNode = currentNode.child;
@@ -137,7 +126,6 @@ public class AutoComplete implements AutoCompleteInterface {
               }
             }
           }
-        //THIS IS THE PROBLEM
         }
 
         else if(currentNode.child==null){               //If child dosen't exist, we straight adding down
@@ -175,12 +163,8 @@ public class AutoComplete implements AutoCompleteInterface {
                 else{                                             //KEEP GOING
                   Stott = Stott.nextSibling;
                 }
-
               }
-
             }
-            
-            
           }
           else{                                     //If the child is the RIGHT letter, move down
             currentNode = currentNode.child;
@@ -192,7 +176,7 @@ public class AutoComplete implements AutoCompleteInterface {
 
         if(addindex==length-1){                    //If we just added the last letter of the string
           if(currentNode.isWord==true){            //But turns out this word already exists
-            REVERSE();
+            //REVERSE();
             alreadyexists = false;
             return false;                          //Too bad, already exists.
           }
@@ -205,8 +189,8 @@ public class AutoComplete implements AutoCompleteInterface {
       
 
       return true;
-
     }
+
     public void REVERSE(){
       for(int a = 0; a<added.length;a++){
         DLBNode alfredo = added[a];
@@ -222,7 +206,6 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
-     
       boolean foundit = false;
       if(currentPrefix.length()==0){                                            //If we are starting from root
         currentNode = root;
@@ -413,7 +396,7 @@ public class AutoComplete implements AutoCompleteInterface {
         if(currentNode.child==null){
           return null;
         }
-        StringBuilder temp = currentPrefix;
+        StringBuilder temp = new StringBuilder(currentPrefix);
         DLBNode Castellanos = currentNode.child;
         boolean keepergoing = true;
         while(keepergoing){
