@@ -265,7 +265,6 @@ public class AutoComplete implements AutoCompleteInterface {
       }
 
       else{
-
         if(currentNode.child!=null){
           if(currentNode.child.data==c){
             foundit = true;
@@ -298,6 +297,9 @@ public class AutoComplete implements AutoCompleteInterface {
               }
           }
         }
+      }
+      if(foundit){
+        cNodelength++;
       }
       System.out.println("CNodeLength: " + cNodelength);
       System.out.println("PrefixLength " + prefixlength);
