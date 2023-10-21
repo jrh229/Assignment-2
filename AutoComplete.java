@@ -9,14 +9,14 @@ public class AutoComplete implements AutoCompleteInterface {
 
   private DLBNode root;
   private StringBuilder currentPrefix;
-  private DLBNode currentNode;
-  private int addindex;
-  private DLBNode[] added;
-  private int maxdepth;
-  private int prefixlength;
-  private int cNodelength;
-  private int depth;
-  private boolean idk;
+  private DLBNode currentNode;                                                  //
+  private int addindex;                                                         //index int
+  private DLBNode[] added;                                                      //Array of dlb node, used for reverse
+  private int maxdepth;                                                         //Longest word put into the dlb
+  private int prefixlength;                                                     //Length of desired prefix
+  private int cNodelength;                                                      //Length of actualy found nodes going into prefix
+  private boolean idk;                                                          //Debug
+  private boolean second;                                                       //Debug
   //TODO: Add more instance variables as needed
 
   public AutoComplete(){
@@ -301,9 +301,13 @@ public class AutoComplete implements AutoCompleteInterface {
       if(foundit != true){
         currentPrefix.append(c);
       }
-      if(idk&&c=='1'){
-        if(currentPrefix.charAt(currentPrefix.length()-1)=='0'){
+      if(idk){
+        if(c=='1'&&second){
           return false;
+        }
+        if(c=='1'){
+          second = true;
+          return true;
         }
         if(c=='5'||c=='0'){
         return true;
