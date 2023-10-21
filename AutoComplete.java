@@ -344,7 +344,7 @@ public class AutoComplete implements AutoCompleteInterface {
       prefixlength--;
       cNodelength--;
     }
-      System.out.println(currentNode.data);
+      //System.out.println(currentNode.data);
     }
 
   /**
@@ -386,9 +386,9 @@ public class AutoComplete implements AutoCompleteInterface {
    * O(1).
    */
     public int getNumberOfPredictions(){
-      System.out.println("NumberOfPredictions:" + currentNode.size);
-      System.out.println("CNodeLength:" + cNodelength);
-      System.out.println("prefixlength:" + prefixlength);
+      //System.out.println("NumberOfPredictions:" + currentNode.size);
+      //System.out.println("CNodeLength:" + cNodelength);
+      //System.out.println("prefixlength:" + prefixlength);
       if(cNodelength==prefixlength){
         return currentNode.size;
       }
@@ -417,7 +417,7 @@ public class AutoComplete implements AutoCompleteInterface {
         if(currentNode.child==null){
           return null;
         }
-        StringBuilder temp = currentPrefix;
+        StringBuilder temp = new StringBuilder(currentPrefix);
         DLBNode Castellanos = currentNode.child;
         boolean keepergoing = true;
         while(keepergoing){
