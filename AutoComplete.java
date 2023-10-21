@@ -302,12 +302,16 @@ public class AutoComplete implements AutoCompleteInterface {
       }
       String idk = retrievePrediction();
       if(idk!=null){
+        System.out.println("True");
         return true;
       }
       if(prefixlength==cNodelength){
+        System.out.println("True");
         return true;
+        
       }
       else{
+        System.out.println("False");
         return false;
       }
       
