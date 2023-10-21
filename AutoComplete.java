@@ -305,13 +305,9 @@ public class AutoComplete implements AutoCompleteInterface {
         if(currentPrefix.charAt(currentPrefix.length()-1)=='0'){
           return false;
         }
+        if(c=='5'||c=='0'){
         return true;
-      }
-      if(idk&&c=='1'){
-        return true;
-      }
-      if(idk&&c=='0'){
-        return true;
+        }
       }
       if(prefixlength==cNodelength){
         return true;
