@@ -315,9 +315,12 @@ public class AutoComplete implements AutoCompleteInterface {
    * @throws IllegalStateException if the current prefix is the empty string
    */
     public void retreat(){
-      
-      if(currentPrefix.length()==1){
+      if(currentPrefix.length()==0){
         throw new IllegalStateException();
+      }
+      if(currentPrefix.length()==1){
+        currentPrefix.deleteCharAt(0);
+        currentNode=root;
       }
       
       currentPrefix.deleteCharAt(currentPrefix.length() - 1);
