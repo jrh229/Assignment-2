@@ -226,7 +226,7 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
-      //printTrie(root, maxdepth);
+      
       boolean foundit = false;
       if(currentPrefix.length()==0){                                            //If we are starting from root
         currentNode = root;
@@ -297,7 +297,6 @@ public class AutoComplete implements AutoCompleteInterface {
         }
       }
        prefixlength++;
-      //printTrie(root, maxdepth);
       if(foundit != true){
         currentPrefix.append(c);
       }
@@ -316,9 +315,11 @@ public class AutoComplete implements AutoCompleteInterface {
    * @throws IllegalStateException if the current prefix is the empty string
    */
     public void retreat(){
-      if(currentPrefix.length()==0){
+      
+      if(currentPrefix.length()==1){
         throw new IllegalStateException();
       }
+      
       currentPrefix.deleteCharAt(currentPrefix.length() - 1);
       if(cNodelength!=prefixlength){
         prefixlength--;
@@ -327,7 +328,6 @@ public class AutoComplete implements AutoCompleteInterface {
         if(currentNode.parent==null){                                             //If currnode has no parents go all the way back to whichever prev sibling has a parent
           boolean RUNYOUFOOLS = true;
           DLBNode Gandalf = currentNode.previousSibling;
-
           while(RUNYOUFOOLS){
             if(Gandalf.parent!=null){
               currentNode=Gandalf.parent;
@@ -343,8 +343,8 @@ public class AutoComplete implements AutoCompleteInterface {
       }
       prefixlength--;
       cNodelength--;
+      
     }
-      //System.out.println(currentNode.data);
     }
 
   /**
