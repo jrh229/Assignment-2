@@ -16,6 +16,7 @@ public class AutoComplete implements AutoCompleteInterface {
   private int prefixlength;
   private int cNodelength;
   private int depth;
+  private boolean idk;
   //TODO: Add more instance variables as needed
 
   public AutoComplete(){
@@ -300,9 +301,7 @@ public class AutoComplete implements AutoCompleteInterface {
       if(foundit != true){
         currentPrefix.append(c);
       }
-      String idk = retrievePrediction();
-      if(idk!=null){
-        System.out.println("True");
+      if(idk){
         return true;
       }
       if(prefixlength==cNodelength){
@@ -415,6 +414,7 @@ public class AutoComplete implements AutoCompleteInterface {
    * @return a String or null if no predictions exist for the current prefix
    */
     public String retrievePrediction(){
+    
       if(currentNode.size<1){
         return null;
         
@@ -430,6 +430,7 @@ public class AutoComplete implements AutoCompleteInterface {
         DLBNode Castellanos = currentNode;
         temp.deleteCharAt(temp.length()-1);
         boolean keepergoing = true;
+        idk = true;
         while(keepergoing){
           temp.append(Castellanos.data);
           if(Castellanos.isWord){
