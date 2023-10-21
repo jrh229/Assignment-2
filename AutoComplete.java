@@ -321,6 +321,7 @@ public class AutoComplete implements AutoCompleteInterface {
       if(currentPrefix.length()==1){
         currentPrefix.deleteCharAt(0);
         currentNode=root;
+        return;
       }
       
       currentPrefix.deleteCharAt(currentPrefix.length() - 1);
