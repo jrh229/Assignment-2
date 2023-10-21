@@ -265,13 +265,7 @@ public class AutoComplete implements AutoCompleteInterface {
       }
 
       else{
-        if(currentNode.data==c){
-            currentPrefix.append(c);
-            foundit = true;
-            cNodelength++;
-            
-            
-        }
+
         if(currentNode.child!=null){
           if(currentNode.child.data==c){
             foundit = true;
