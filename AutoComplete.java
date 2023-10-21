@@ -424,10 +424,10 @@ public class AutoComplete implements AutoCompleteInterface {
         }
         StringBuilder temp = new StringBuilder(currentPrefix);
         DLBNode Castellanos = currentNode;
-        temp.deleteCharAt(temp.length()-1);
+        temp.deleteCharAt(temp.length()-1);                                     //Makes a copy of the prefix
         boolean keepergoing = true;
         idk = true;
-        while(keepergoing){
+        while(keepergoing){                                                     //Go straight down until the first word, there has to be A word below current point, unless curr is a word too
           temp.append(Castellanos.data);
           if(Castellanos.isWord){
             return temp.toString();
