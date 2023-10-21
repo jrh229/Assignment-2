@@ -302,7 +302,8 @@ public class AutoComplete implements AutoCompleteInterface {
       if(foundit != true){
         currentPrefix.append(c);
       }
-      if(idk&&currentPrefix.toString()=="CS1"){
+      System.out.println("Bro What" + currentPrefix.toString());
+      if(idk&&currentPrefix.length()==3){
         return true;
       }
       if(prefixlength==cNodelength){
