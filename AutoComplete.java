@@ -195,8 +195,8 @@ public class AutoComplete implements AutoCompleteInterface {
 
         if(addindex==length-1){                    //If we just added the last letter of the string
           if(currentNode.isWord==true){            //But turns out this word already exists
-            //REVERSE();
-            //alreadyexists = false;
+            REVERSE();
+            alreadyexists = false;
             return false;                          //Too bad, already exists.
           }
           currentNode.isWord=true;                 //Dosent exist, therefore this is the  end of the new word
@@ -207,7 +207,7 @@ public class AutoComplete implements AutoCompleteInterface {
       }
       
 
-      return alreadyexists;
+      return true;
 
     }
 
@@ -299,6 +299,9 @@ public class AutoComplete implements AutoCompleteInterface {
        prefixlength++;
       if(foundit != true){
         currentPrefix.append(c);
+      }
+      if(retrievePrediction()!=null){
+        return true;
       }
       if(prefixlength==cNodelength){
         return true;
