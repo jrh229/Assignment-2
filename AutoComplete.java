@@ -228,18 +228,14 @@ public class AutoComplete implements AutoCompleteInterface {
    */
     public boolean advance(char c){
       
-      System.out.println("Current Node "+ currentNode.data);
       boolean foundit = false;
       if(currentPrefix.length()==0){                                            //If we are starting from root
         currentNode = root;
-      }
-      if(currentNode.data==c){
-          currentPrefix.append(c);
-          foundit = true;
-          cNodelength++;
-          if(currentNode.child!=null){
-            currentNode=currentNode.child;
-          }
+        if(currentNode.data==c){
+            currentPrefix.append(c);
+            foundit = true;
+            cNodelength++;
+            
         }
       else{
           DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
@@ -253,10 +249,8 @@ public class AutoComplete implements AutoCompleteInterface {
                   currentNode = Stott;                                          //Curr node is now this sibling
                   currentPrefix.append(c);
                   cNodelength++;
+                  
                   RIDERIDERSOFTHEODEN = false;
-                  if(currentNode.child!=null){
-                    currentNode=currentNode.child;
-                  }
                   
                 }
                 else if(Stott.nextSibling==null){
@@ -267,6 +261,41 @@ public class AutoComplete implements AutoCompleteInterface {
                 }
               }
           }
+      }
+      
+      else{
+        if(currentNode.child!=null){
+          if(currentNode.child.data==c){
+            foundit = true;
+            currentNode=currentNode.child;
+            currentPrefix.append(c);
+            cNodelength++;
+          }
+          else{
+            DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
+            boolean RIDERIDERSOFTHEODEN = false;
+            if(Stott!=null){
+              RIDERIDERSOFTHEODEN = true;
+            }
+              while(RIDERIDERSOFTHEODEN){                                               //We check the siblings till we reach either the correct one, or a null in which we make a new one
+                if(Stott.data==c){                                              //If Praise be to God we find the right sibling
+                  foundit = true;
+                  currentNode = Stott;                                          //Curr node is now this sibling
+                  currentPrefix.append(c);
+                  cNodelength++;
+                  RIDERIDERSOFTHEODEN = false;
+
+                }
+                else if(Stott.nextSibling==null){
+                  RIDERIDERSOFTHEODEN = false;
+                }
+                else{                                                           //KEEP GOING
+                  Stott = Stott.nextSibling;
+                }
+              }
+          }
+        }
+      }
       prefixlength++;
       
       if(foundit != true){
