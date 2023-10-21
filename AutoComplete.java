@@ -236,7 +236,9 @@ public class AutoComplete implements AutoCompleteInterface {
             currentPrefix.append(c);
             foundit = true;
             cNodelength++;
-            
+            if(currentNode.child!=null){
+              currentNode=currentNode.child;
+            }
         }
       else{
           DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
