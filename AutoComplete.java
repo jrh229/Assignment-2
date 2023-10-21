@@ -265,6 +265,13 @@ public class AutoComplete implements AutoCompleteInterface {
       }
 
       else{
+        if(currentNode.data==c){
+            currentPrefix.append(c);
+            foundit = true;
+            cNodelength++;
+            
+            
+        }
         if(currentNode.child!=null){
           if(currentNode.child.data==c){
             foundit = true;
@@ -298,16 +305,12 @@ public class AutoComplete implements AutoCompleteInterface {
           }
         }
       }
+      System.out.println("CNodeLength: " + cNodelength);
+      System.out.println("PrefixLength " + prefixlength);
       prefixlength++;
       
       if(foundit != true){
         currentPrefix.append(c);
-      }
-      if(foundit==true){
-        return true;
-      }
-      if(idk&&currentPrefix.length()==4){
-        return true;
       }
       if(prefixlength==cNodelength){
         return true;
