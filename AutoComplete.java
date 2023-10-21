@@ -302,18 +302,6 @@ public class AutoComplete implements AutoCompleteInterface {
       if(foundit != true){
         currentPrefix.append(c);
       }
-      if(idk){
-        if(c=='1'&&second){
-          return false;
-        }
-        if(c=='1'){
-          second = true;
-          return true;
-        }
-        if(c=='5'||c=='0'){
-        return true;
-        }
-      }
       if(prefixlength==cNodelength){
         return true;
         
