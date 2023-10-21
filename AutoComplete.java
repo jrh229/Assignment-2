@@ -271,7 +271,7 @@ public class AutoComplete implements AutoCompleteInterface {
             currentNode=currentNode.child;
             currentPrefix.append(c);
             cNodelength++;
-            
+            System.out.println("IS THIS WORKING");
           }
           else{
             DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
@@ -297,9 +297,6 @@ public class AutoComplete implements AutoCompleteInterface {
               }
           }
         }
-      }
-      if(foundit){
-        cNodelength++;
       }
       System.out.println("CNodeLength: " + cNodelength);
       System.out.println("PrefixLength " + prefixlength);
