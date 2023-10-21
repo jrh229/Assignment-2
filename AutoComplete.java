@@ -268,7 +268,7 @@ public class AutoComplete implements AutoCompleteInterface {
         if(currentNode.child!=null){
           if(currentNode.child.data==c){
             foundit = true;
-            //currentNode=currentNode.child;
+            currentNode=currentNode.child;
             currentPrefix.append(c);
             cNodelength++;
             System.out.println("IS THIS WORKING");
