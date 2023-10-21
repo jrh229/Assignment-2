@@ -300,7 +300,8 @@ public class AutoComplete implements AutoCompleteInterface {
       if(foundit != true){
         currentPrefix.append(c);
       }
-      if(retrievePrediction()!=null){
+      String idk = retrievePrediction();
+      if(idk!=null){
         return true;
       }
       if(prefixlength==cNodelength){
