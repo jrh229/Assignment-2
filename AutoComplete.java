@@ -15,6 +15,7 @@ public class AutoComplete implements AutoCompleteInterface {
   private int maxdepth;
   private int prefixlength;
   private int cNodelength;
+  private int depth;
   //TODO: Add more instance variables as needed
 
   public AutoComplete(){
@@ -37,17 +38,19 @@ public class AutoComplete implements AutoCompleteInterface {
       if(length > maxdepth){                                    //Sets new deepest length
         maxdepth = length;
       }
-
       added = new DLBNode[length];                              //Creates backtracking array
       DLBNode newroot = new DLBNode(word.charAt(0));
-
+      char tildeChar = '~';
+      DLBNode templaceholder = new DLBNode(tildeChar);
       if(root==null){                                         //If root does not exist (new)
           root = newroot;
+          depth =1;
         }
-
+        else{
+          depth = 0;
+        }
       currentNode = root;                                     //Sets Currentnode back to root
       addindex = 0;                                           //Counter
-
 
       while(addindex<length){
 
@@ -149,14 +152,14 @@ public class AutoComplete implements AutoCompleteInterface {
         else if(currentNode.child!=null){                         //If there already IS a Child
           if(currentNode.child.data!=Phillies){                   //BUT its not the right letter
 
-            if(currentNode.child.nextSibling==null){              //IF the childs sibling is null
-              currentNode.child.nextSibling = Bohm;               //Attach a new sibling to child
-              Bohm.previousSibling = currentNode.child;
+            if(currentNode.nextSibling==null){              //IF the childs sibling is null
+              currentNode.nextSibling = Bohm;               //Attach a new sibling to child
+              Bohm.previousSibling = currentNode;
               currentNode = Bohm;
             }
 
             else{                                                 //IF child sibling is not null
-              DLBNode Stott = currentNode.child.nextSibling;      //New Potential Sibling
+              DLBNode Stott = currentNode.nextSibling;      //New Potential Sibling
             
               boolean VORWARTS = true;
               while(VORWARTS){                                    //We check the siblings till we reach either the correct one, or a null in which we make a new one
@@ -207,6 +210,7 @@ public class AutoComplete implements AutoCompleteInterface {
       return true;
 
     }
+
     public void REVERSE(){
       for(int a = 0; a<added.length;a++){
         DLBNode alfredo = added[a];
@@ -222,7 +226,7 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
-     
+      //printTrie(root, maxdepth);
       boolean foundit = false;
       if(currentPrefix.length()==0){                                            //If we are starting from root
         currentNode = root;
