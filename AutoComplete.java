@@ -227,7 +227,8 @@ public class AutoComplete implements AutoCompleteInterface {
    * in the dictionary and false otherwise
    */
     public boolean advance(char c){
-      System.out.println("Curr Prefix" + currentPrefix);
+      System.out.println("Curr Prefix " + currentPrefix);
+      System.out.println("Current Node "+ currentNode.data);
       boolean foundit = false;
       if(currentPrefix.length()==0){                                            //If we are starting from root
         currentNode = root;
