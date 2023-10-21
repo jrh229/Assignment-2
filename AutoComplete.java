@@ -297,20 +297,18 @@ public class AutoComplete implements AutoCompleteInterface {
           }
         }
       }
-       prefixlength++;
+      prefixlength++;
       if(foundit != true){
         currentPrefix.append(c);
       }
       if(idk){
-        return true;
+        //return true;
       }
       if(prefixlength==cNodelength){
-        System.out.println("True");
         return true;
         
       }
       else{
-        System.out.println("False");
         return false;
       }
       
