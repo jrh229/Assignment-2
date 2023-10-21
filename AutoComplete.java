@@ -297,11 +297,11 @@ public class AutoComplete implements AutoCompleteInterface {
           }
         }
       }
-      //prefixlength++;
+      prefixlength++;
       
-      if(foundit != true){
-        currentPrefix.append(c);
-      }
+      //if(foundit != true){
+        //currentPrefix.append(c);
+      //}
       
       if(idk){
         //return true;
