@@ -236,6 +236,7 @@ public class AutoComplete implements AutoCompleteInterface {
             currentPrefix.append(c);
             foundit = true;
             cNodelength++;
+            
         }
       else{
           DLBNode Stott = currentNode.nextSibling;                              //Next Sibling
@@ -262,6 +263,7 @@ public class AutoComplete implements AutoCompleteInterface {
               }
           }
       }
+      
       else{
         if(currentNode.child!=null){
           if(currentNode.child.data==c){
