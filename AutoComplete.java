@@ -414,19 +414,17 @@ public class AutoComplete implements AutoCompleteInterface {
       if(cNodelength!=prefixlength){
         return null;
       }
-      if(currentNode.isWord){
-        return currentPrefix.toString();
-      }
       else{
         if(currentNode.child==null){
           return null;
         }
         StringBuilder temp = new StringBuilder(currentPrefix);
-        DLBNode Castellanos = currentNode.child;
+        DLBNode Castellanos = currentNode;
+        temp.deleteCharAt(temp.length()-1);
         boolean keepergoing = true;
         while(keepergoing){
+          temp.append(Castellanos.data);
           if(Castellanos.isWord){
-            temp.append(Castellanos.data);
             return temp.toString();
           }
           else if(Castellanos.child==null){
