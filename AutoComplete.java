@@ -263,7 +263,15 @@ public class AutoComplete implements AutoCompleteInterface {
               }
           }
       }
-
+      else if(currentNode.data==c){
+        if(currentNode.child!=null){
+          foundit = true;
+          currentNode=currentNode.child;
+          currentPrefix.append(c);
+          cNodelength++;
+          System.out.println("IS THIS WORKING");
+      }
+    }
       else{
         if(currentNode.child!=null){
           if(currentNode.child.data==c){
