@@ -7,16 +7,17 @@
 
 public class AutoComplete implements AutoCompleteInterface {
 
-  private DLBNode root;
-  private StringBuilder currentPrefix;
-  private DLBNode currentNode;                                                  //
-  private int addindex;                                                         //index int
+  private DLBNode root;                                                         //root node
+  private StringBuilder currentPrefix;                                          //Prefix StrBldr
+  private DLBNode currentNode;                                                  //Currnode
+  private int addindex;                                                         //Index for adding loop
   private DLBNode[] added;                                                      //Array of dlb node, used for reverse
   private int maxdepth;                                                         //Longest word put into the dlb
   private int prefixlength;                                                     //Length of desired prefix
   private int cNodelength;                                                      //Length of actualy found nodes going into prefix
   private boolean idk;                                                          //Debug
   private boolean second;                                                       //Debug
+  private int depth;                                                            //Failed attempt at previous add
   //TODO: Add more instance variables as needed
 
   public AutoComplete(){
