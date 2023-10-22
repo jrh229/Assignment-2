@@ -5,17 +5,17 @@ every assignment. Also be sure to submit all materials
 following the procedures described in the assignment
 description.
 
-Name: ______________________________
+Name: Joshua Hine
 
-Assignment #: ______________
+Assignment #: 2
 
 Source code (.java) file name(s):
 
-_________________________________________________________
+AutoComplete.java
 
 _________________________________________________________
 
-Does your program compile without errors?: _____________
+Does your program compile without errors?: Yes
 
 If not, what is/are the error(s)?:
 
@@ -25,7 +25,7 @@ _________________________________________________________
 
 _________________________________________________________
 
-Does your program run without errors?: _____________
+Does your program run without errors?: Yes
 
 If not, what is/are the error(s) and which parts of your
 program run correctly?:
@@ -40,10 +40,4 @@ _________________________________________________________
 
 
 Additional comments (including problems and extra credit):
-_________________________________________________________
-
-_________________________________________________________
-
-_________________________________________________________
-
-_________________________________________________________
+dict8.txt does run and compile but the resulting DLB Trie is not entirley correct
